@@ -1,0 +1,64 @@
+//{ Driver Code Starts
+#include<bits/stdc++.h>
+using namespace std;
+
+
+// } Driver Code Ends
+
+class Solution {
+  public:
+    int distributeTicket(int N, int K) {
+    deque<int>q;
+        int p;
+        for(int i=1;i<=N;i++)
+        {
+            q.push_back(i);
+        }
+        while(!q.empty())
+        {
+            for(int i=0;i<K;i++)
+            {
+                if(!q.empty())
+                {
+                    p=q.front();
+                    q.pop_front();
+                }
+            }
+             for(int i=0;i<K;i++)
+            {
+                if(!q.empty())
+                {
+                    p=q.back();
+                    q.pop_back();
+                }
+            }
+            
+        }
+        return p;
+    }
+};
+
+
+//{ Driver Code Starts.
+
+int main(){
+    int t;
+    scanf("%d ",&t);
+    while(t--){
+        
+        int N;
+        scanf("%d",&N);
+        
+        
+        int K;
+        scanf("%d",&K);
+        
+        Solution obj;
+        int res = obj.distributeTicket(N, K);
+        
+        cout<<res<<endl;
+        
+    }
+}
+
+// } Driver Code Ends
