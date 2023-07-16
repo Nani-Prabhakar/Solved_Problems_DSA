@@ -1,0 +1,26 @@
+//Linear Search In Linked List::
+
+
+//Iteratively::
+
+Node* Search(Node* p,int key){
+
+	while(p){
+		if(key==p->data)return p;
+		p=p->next;
+
+	}
+	return NULL;
+}
+
+
+
+//Recursively::
+
+Node* R_Search(Node* p,int key){
+	
+	if(p==NULL)return NULL;
+	if(key==p->data)return p;
+	return R_Search(p->next,key);
+
+}
