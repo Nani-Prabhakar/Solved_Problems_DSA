@@ -23,8 +23,8 @@ class Solution{
         {
             if(!root)return nullptr;
             int cur=root->data;
-            if(cur<n1&&cur<n2)return LCA(root->right,n1,n2);
-            if(cur>n1&&cur>n2)return LCA(root->left,n1,n2);
+            if(n1<cur&&n2<cur)return LCA(root->left,n1,n2);
+            if(n1>cur&&n2>cur)return LCA(root->right,n1,n2);
             return root;
         }
 
