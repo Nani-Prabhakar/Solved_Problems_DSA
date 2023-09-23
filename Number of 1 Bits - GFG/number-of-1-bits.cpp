@@ -5,18 +5,13 @@ using namespace std;
 // } Driver Code Ends
 class Solution {
   public:
-    int setBits(int N) {
-        int res=0;
-        vector<int> arr;
-        int i=0;
-        while(N>0){
-           arr.push_back(N%2);
-           if(arr[i]==1)res+=1;
-           N/=2;
-           i++;
-       }
-    
-     return res;
+    int setBits(int n) {
+        int count=0;
+        while(n){
+            count+=n&1;
+            n>>=1;
+        }
+        return count;
     }
 };
 
