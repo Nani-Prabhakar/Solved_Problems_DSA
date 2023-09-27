@@ -12,24 +12,23 @@ class Solution{
         vector<int>ans;
         int i=0;
         int j=m-1;
-        int k,l;
+        int el1,el2;
         int diff=INT_MAX;
         while(i<n and j>=0){
-           if(abs(arr[i]+brr[j]-x)<diff){
-               diff=abs(arr[i]+brr[j]-x);
-               k=i;
-               l=j;
+           int sum=arr[i]+brr[j];
+           if(abs(sum-x)<diff){
+               diff=abs(sum-x);
+               el1=arr[i];
+               el2=brr[j];
            }
-           if(arr[i]+brr[j]<x){
+           if(sum<x){
                i++;
            }
            else {
                j--;
            }
         }
-        ans.push_back(arr[k]);
-        ans.push_back(brr[l]);
-        return ans;
+        return {el1,el2};
     }
 };
 
