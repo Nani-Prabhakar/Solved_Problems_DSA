@@ -1,0 +1,12 @@
+//1512. Number of Good Pairs
+class Solution {
+public:
+        int numIdenticalPairs(vector<int>& A) {
+        int ans = 0;
+        unordered_map<int, int> cnt;
+        for (int x: A) {
+        ans += cnt[x]++;
+        }
+        return ans;
+    }
+};
