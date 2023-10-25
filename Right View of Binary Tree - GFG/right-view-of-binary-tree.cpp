@@ -37,33 +37,21 @@ struct Node
 }; */
 
 // Should return  right view of tree
-
-
-
 class Solution
 {
-    vector<int>v;
-    void rightViewHelper(Node * root, int height) {
-        if(!root) return;
-        if(height==v.size()){
-            v.push_back(root->data);
-        }
-        rightViewHelper(root->right, height + 1);
-        rightViewHelper(root->left, height + 1);
+    void helper(Node* root,int l,vector<int>&ans){
+    if(root==NULL)return ;
+    if(l==ans.size())ans.push_back(root->data);
+    helper(root->right,l+1,ans);
+    helper(root->left,l+1,ans);
+    
     }
     public:
     //Function to return list containing elements of right view of binary tree.
     vector<int> rightView(Node *root)
     {
-       // Your Code here
-       vector<int> ans;
-       int height = 0;
-       rightViewHelper(root, height);
-       
-      for(int i=0;i<v.size();i++){
-          ans.push_back(v[i]);
-      }
-       
+       vector<int>ans;
+       helper(root,0,ans);
        return ans;
     }
 };
