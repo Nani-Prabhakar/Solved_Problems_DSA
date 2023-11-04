@@ -1,0 +1,17 @@
+//1503.leetcode.cpp
+
+
+class Solution {
+public:
+    int getLastMoment(int n, vector<int>& left, vector<int>& right) {
+        int l=0;
+        int r=INT_MAX;
+        for(int n:left){
+            l=max(l,n);
+        }
+        for(int n:right){
+            r=min(r,n);
+        }
+        return max(l,n-r);
+    }
+};
