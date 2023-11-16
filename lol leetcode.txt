@@ -1,0 +1,60 @@
+class Solution {
+    string fun(int n){
+        string ans="";
+        while(n){
+            ans=to_string(n%2)+ans;
+            n/=2;
+        }
+        return ans;
+    }
+public:
+    string findDifferentBinaryString(vector<string>& nums) {
+        //unordered_map<int,int>mp;
+    
+       int ans=0;
+        string s="";
+        vector<int>integer;
+        int mini=INT_MAX;
+        int size=nums.size();
+        
+        for(auto s:nums)
+        {
+            integer.push_back(bitset<32>(s).to_ulong());
+        
+        }
+        if(size==1){
+            if(integer[0]==1)return "0";
+            else return "1";
+        }
+        sort(integer.begin(),integer.end());
+        if(integer[size-1]==pow(2,size)-1 and integer[0]!=0){
+            s= fun(integer[0]-1);
+               int sz=size-s.size();
+               for(int i=0;i<sz;i++){
+                   s="0"+s;
+               }
+               return s; //break;
+        }
+        else{
+        for(int i=1;i<integer.size();i++){
+           if(integer[i]-integer[i-1]>1){
+               ans=1;
+               s= fun(integer[i-1]+1);
+               int sz=size-s.size();
+               for(int i=0;i<sz;i++){
+                   s="0"+s;
+               }
+               return s; break;
+           }
+        }
+        if(!ans){
+             s= fun(integer[size-1]+1);
+               int sz=size-s.size();
+               for(int i=0;i<sz;i++){
+                   s="0"+s;
+               }
+               return s;
+        }}
+        return "";
+    }
+};
