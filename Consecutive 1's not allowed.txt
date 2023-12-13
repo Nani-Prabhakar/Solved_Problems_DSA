@@ -1,0 +1,20 @@
+class Solution{
+public:
+	// #define ll long long
+	ll countStrings(int n) {
+	    // code here
+	    //space optimization
+	    if (n == 1) return 2;
+        int mod = (int)1e9+7;
+        ll f = 1;
+        ll s = 2;
+        for (int i = 2; i <= n; i++) {
+            ll temp = (f % mod + s % mod) % mod;
+            f = s;
+            s = temp;
+        }
+        
+        return s;
+        
+	}
+};
