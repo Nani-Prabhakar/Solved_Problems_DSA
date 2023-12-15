@@ -1,0 +1,39 @@
+Reach the Nth point
+
+//{ Driver Code Starts
+#include<bits/stdc++.h>
+using namespace std;
+
+// } Driver Code Ends
+class Solution{
+	public:
+		int nthPoint(int n){
+		    // Code here
+		    int mod=1e9+7;
+		    if(n==1)return 1;
+		    if(n==2)return 2;
+		    int prev1=1;
+		    int prev2=2;
+		    for(int i=3;i<=n;i++){
+		        int cur=((prev1%mod)+(prev2%mod))%mod;
+		        prev1=prev2;
+		        prev2=cur;
+		    }
+		    return prev2;
+		}
+};
+
+//{ Driver Code Starts.
+int main(){
+	int tc;
+	cin >> tc;
+	while(tc--){
+		int n;
+		cin >> n;
+		Solution ob;
+		int ans  = ob.nthPoint(n);
+		cout << ans <<"\n";
+	}
+	return 0;
+}
+// } Driver Code Ends
