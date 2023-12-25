@@ -1,0 +1,50 @@
+
+
+*Basic HTML/CSS
+
+#1 Basics of JavaScript
+   # Variables (how this variables work)
+     - Var, Let Const
+   # Hoisting of variables 
+
+#2 Functions
+  - Arrow Functions
+  - Higher Order FUnctions
+
+#3 Arrays and Objects
+  - Array Destructuring
+  - Object Destructuring
+  - rest operator
+  - spread operator
+
+#4 Conditions in JavaScript
+  - if else
+  - ternary operators
+  - using && and ||
+  - Optional chaining
+
+#5 Array Methods
+  - map(), 
+  - filter()
+   - reduce()
+   - sort()
+
+#6 Event Listeners
+  - onClick
+  - onBlur
+  - onChange
+  - onFocus
+  setTimeout() & setInterval()
+ - EventBubling and EventCapturing method
+
+#7 Asynchronous Events
+ - Callbacks
+ - Callback Hell
+ - Promises
+ - Promise APIS
+
+#8 Async Await
+#9 Try Catch       
+
+
+
