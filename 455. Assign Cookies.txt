@@ -1,0 +1,45 @@
+
+//class Solution {
+public:
+    int findContentChildren(vector<int>& g, vector<int>& s) {
+        int n=g.size();
+        int m=s.size();
+        sort(begin(g),end(g));
+        sort(begin(s),end(s));
+        if(m==0)return 0;
+        int l=n-1;
+        int r=m-1;
+        int ans=0;
+        while(l>=0 && r>=0){
+            if(s[r]>=g[l]){
+                ans++;
+                l--;
+                r--;
+            }
+            else{
+                l--;
+            }
+        }
+        return ans;
+    }
+};
+
+
+
+//         //tc:o(n*m)
+//         // int ans=0;
+//         // int k=0;
+//         // for(int i=0;i<n;i++){
+//         //     int j=k;
+//         //     for(j=k;j<m;j++){
+//         //         if(s[j]>=g[i] ){
+//         //            k=j+1;
+//         //            ans++;
+//         //            break;
+//         //         }
+//         //     }
+//         //     if(j==m or ans==m)break;
+//         // }
+//         // return ans;
+
+//         //two-pointer::
