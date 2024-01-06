@@ -1,0 +1,22 @@
+class Solution {
+    int powerOfPrimeFactors(int n){
+        int ans=0;
+        for(int i=2;i*i<=n;i++){
+            while(n%i==0){
+                ans++;
+                n/=i;
+            }
+        }
+        if(n!=1)ans++;
+        return ans;
+    }
+public:
+	int sumOfPowers(int a, int b){
+	    // Code here
+	    int sum=0;
+	    for(int i=a;i<=b;i++){
+	        sum+=powerOfPrimeFactors(i);
+	    }
+	    return sum;
+	}
+};
