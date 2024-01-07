@@ -1,0 +1,26 @@
+class Solution{
+    public:
+    int minOPs(int n, vector<int> &A)
+    {
+        //Write Code Here
+        unordered_map<int,int>mp;
+        for(auto n:A){
+            mp[n]++;
+        }
+        int tar=(n/2);
+        vector<int>ans;
+        for(auto pair:mp){
+            ans.push_back(pair.second);
+        }
+        sort(begin(ans),end(ans));
+        int opp=0;
+        int sum=ans[ans.size()-1];
+        if(sum>n/2)return 0;
+        for(int i=ans.size()-2;i>=0;i--){
+            opp++;
+            sum+=ans[i];
+            if(sum>n/2)return opp;
+        }
+        return opp;
+    }
+};

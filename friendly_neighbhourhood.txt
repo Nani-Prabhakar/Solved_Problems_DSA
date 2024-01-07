@@ -1,0 +1,26 @@
+class Solution{
+    public:
+    int ceil(int a, int b){
+        if(a%b) return a/b+1;
+        return a/b;
+    }
+    int recur(int i, int cur, int a, int b, int sum, vector<int> &strength, vector<vector<int>> &dp){
+        if(i == strength.size()){
+            return max(ceil(cur, a), ceil(sum-cur,b));
+        }
+        
+        int &ans = dp[i][cur];
+        if(ans != -1) return ans;
+        ans = min(recur(i+1, cur + strength[i], a,b,sum,strength, dp), recur(i+1, cur, a,b,sum,strength, dp));
+        return ans;
+    }
+    int findMinTime(int a, int b, int n, vector<int> &strength)
+    {
+        //Write Code Here
+        long sum = 0;
+        for(auto i: strength) sum += i;
+        vector<vector<int>> dp(n, vector<int>(sum+1, -1));
+        
+        return recur(0,0,a, b, sum, strength, dp);
+    }
+};
