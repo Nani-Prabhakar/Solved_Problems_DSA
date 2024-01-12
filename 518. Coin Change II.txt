@@ -1,0 +1,61 @@
+class Solution {
+    // recursion+memorization
+    vector<vector<int>>dp;
+    int memorization( int ind,int amount, vector<int>& coins){
+        if(ind==coins.size()){
+            if(amount==0)return 1;
+            else return 0;
+        }
+        if(dp[ind][amount]!=-1){
+            return dp[ind][amount];
+        }
+        int not_take=memorization(ind+1,amount,coins);
+        int take=0;
+        if(amount>=coins[ind])take=memorization(ind,amount-coins[ind],coins);
+        return dp[ind][amount]=take+not_take;    
+    }
+     int tabulation(int amount, vector<int>& coins) {
+        int n=coins.size();
+        // int dp[n][amount+1];
+        vector<vector<int>>dp;
+        dp.resize(n,vector<int>(amount+1,0));
+        for(int tar=0;tar<=amount;tar++){
+            dp[0][tar]=(tar%coins[0]==0);
+        }
+        for(int ind=1;ind<n;ind++){
+            for(int amt=0;amt<=amount;amt++){
+               int not_take=dp[ind-1][amt];
+               int take=0;
+               if(amt>=coins[ind])take=dp[ind][amt-coins[ind]];
+               dp[ind][amt]=take+not_take;
+            }
+        }
+        return dp[n-1][amount];
+
+    }
+
+    int space_optimization(int amount, vector<int>& coins) {
+        int n=coins.size();
+        // int dp[n][amount+1];
+        vector<int>prev(amount+1,0),cur(amount+1,0);
+        for(int tar=0;tar<=amount;tar++){
+            prev[tar]=(tar%coins[0]==0);
+        }
+        for(int ind=1;ind<n;ind++){
+            for(int amt=0;amt<=amount;amt++){
+               int not_take=prev[amt];
+               int take=0;
+               if(amt>=coins[ind])take=cur[amt-coins[ind]];
+               cur[amt]=take+not_take;
+            }
+            prev=cur;
+        }
+        return prev[amount];
+    }
+public:
+    int change(int amount, vector<int>& coins) {
+        //return memorization(0,amount,coins);
+        //return tabulation(amount,coins);
+        return space_optimization(amount,coins);
+    }
+};
