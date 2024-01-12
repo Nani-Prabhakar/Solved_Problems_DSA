@@ -1,0 +1,55 @@
+class Solution{
+    vector<vector<int>>dp;
+    int rec(int ind,int W,int val[],int wt[]){
+        if(ind==0){
+            if(W>=wt[0])return (int)(W/wt[0])*val[0];
+            else return 0;
+        }
+        if(W==0)return 0;
+        if(dp[ind][W]!=-1){
+            return dp[ind][W];
+        }
+        int notTake=rec(ind-1,W,val,wt);
+        int take=-1e9;
+        if(W>=wt[ind])take=val[ind]+rec(ind,W-wt[ind],val,wt);
+        
+        return dp[ind][W]= max(take,notTake);
+    }
+    int tabulation(int N, int W, int val[], int wt[]){
+        for(int w=0;w<=W;w++){
+           if(w>=wt[0]) dp[0][w]=(w/wt[0])*val[0];
+        }
+        for(int ind=1;ind<N;ind++){
+            for(int w=0;w<=W;w++){
+                int notTake=dp[ind-1][w];
+                int take=-1e9;
+                if(w>=wt[ind])take=val[ind]+dp[ind][w-wt[ind]];
+                dp[ind][w]=max(take,notTake);
+            }
+        }
+        return dp[N-1][W];
+    }
+    int space_optimization(int N, int W, int val[], int wt[]){
+        vector<int>prev(W+1,0),cur(W+1,0);
+        for(int w=0;w<=W;w++){
+           if(w>=wt[0]) prev[w]=(w/wt[0])*val[0];
+        }
+        for(int ind=1;ind<N;ind++){
+            for(int w=0;w<=W;w++){
+                int notTake=prev[w];
+                int take=-1e9;
+                if(w>=wt[ind])take=val[ind]+cur[w-wt[ind]];
+                cur[w]=max(take,notTake);
+            }
+            prev=cur;
+        }
+        return prev[W];
+    }
+public:
+    int knapSack(int N, int W, int val[], int wt[])
+    {
+        // code here
+        dp.resize(N,vector<int>(W+1,0));
+        return space_optimization(N,W,val,wt);
+    }
+};
