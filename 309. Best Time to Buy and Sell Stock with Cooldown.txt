@@ -1,0 +1,35 @@
+class Solution {
+    vector<vector<int>>dp;
+    int profit=0;
+     int memorization(int ind,int buy,vector<int>& prices) {
+        if(ind>=prices.size()){
+            return 0;
+        }
+        if(dp[ind][buy]!=-1){
+            return dp[ind][buy];
+        }
+        if(buy){
+            profit=max(-prices[ind]+memorization(ind+1,0,prices),memorization(ind+1,1,prices));
+        }
+        else{
+            profit=max(+prices[ind]+memorization(ind+2,1,prices),memorization(ind+1,0,  prices));
+        }
+        return dp[ind][buy]=profit;
+    }
+public:
+    int maxProfit(vector<int>& prices) {
+        int n=prices.size();
+        dp.resize(n+2,vector<int>(2,0));
+        //return memorization(0,1,prices);
+        vector<int>front2(2,0);
+        vector<int>front1(2,0);
+        vector<int>cur(2,0);
+        for(int ind=n-1;ind>=0;ind--){
+           cur[1]=max(-prices[ind]+front1[0],front1[1]);
+            cur[0]=max(prices[ind]+front2[1],front1[0]);
+            front2=front1;
+            front1=cur;         
+        }
+        return cur[1];
+    }
+};
