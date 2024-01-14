@@ -1,0 +1,26 @@
+class Solution {
+    int greedy(vector<int>& prices, int fee) {
+        int hold = prices[0], ret = 0;
+        for (auto &p : prices) {
+            if (p < hold)
+                hold = p;
+            else if (p - hold - fee > 0) {
+                ret += p - hold - fee;
+                hold = p-fee;
+            }
+        }
+        return ret;
+    }
+public:
+   int maxProfit(vector<int>& prices, int fee) {
+        int n=prices.size();
+        vector<int>prev(2,0);
+        vector<int>cur(2,0);
+        for(int ind=n-1;ind>=0;ind--){
+           cur[1]=max(-prices[ind]+prev[0],prev[1]);
+           cur[0]=max(prices[ind]-fee+prev[1],prev[0]);
+           prev=cur;      
+        }
+        return cur[1];
+    }
+};
