@@ -1,0 +1,27 @@
+class Solution{
+    vector<vector<int>>dp;
+    int recursion(int ind, int total, vector<int> &cost)
+    {
+        if(ind==cost.size()){
+            return 0;
+        }
+        if(total==0){
+            return 0;
+        }
+        if(dp[ind][total]!=-1){
+            return dp[ind][total];
+        }
+        int not_take=recursion(ind+1,total,cost);
+        int take=0;
+        if(total>=cost[ind])take=1+recursion(ind+1,total-cost[ind]+(cost[ind]*9)/10,cost);
+        return dp[ind][total]=max(take,not_take);
+        
+    }
+    public:
+    int max_courses(int n, int total, vector<int> &cost)
+    {
+        //Code Here
+        dp.resize(n,vector<int>(total+1,-1));
+        return recursion(0,total,cost);
+    }
+};

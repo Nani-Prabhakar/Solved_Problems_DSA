@@ -1,0 +1,72 @@
+class Solution {
+    int profit=0;
+    //int n;
+    vector<vector<vector<int>>>dp;
+    int recursion(int ind,int buy,int cap,vector<int>& prices) {
+        if(cap==0){
+            return 0;
+        }
+        if(ind==prices.size()){
+            return 0;
+        }
+        if(dp[ind][buy][cap]!=-1){
+            return dp[ind][buy][cap];
+        }
+        if(buy){
+            profit=max(-prices[ind]+recursion(ind+1,0,cap,prices),recursion(ind+1,1,cap,prices));
+        }
+        else{
+            profit=max(prices[ind]+recursion(ind+1,1,cap-1,prices),recursion(ind+1,0,cap,prices));
+        }
+        return dp[ind][buy][cap]=profit;
+    }
+    int memorization(int ind,int buy,int cap,vector<int>& prices) {
+        if(cap==0){
+            return 0;
+        }
+        if(ind==prices.size()){
+            return 0;
+        }
+        if(buy){
+            profit=max(-prices[ind]+memorization(ind+1,0,cap,prices),memorization(ind+1,1,cap,prices));
+        }
+        else{
+            profit=max(prices[ind]+memorization(ind+1,1,cap-1,prices),memorization(ind+1,0,cap,prices));
+        }
+        return profit;
+    }
+public:
+    int maxProfit(vector<int>& prices) {
+    //     //return recursion(0,1,2,prices);
+    //      int n=prices.size();
+    //      dp.resize(n+1,vector<vector<int>>(2,vector<int>(3,0)));
+    //     //return recursion(0,1,2,prices);
+    //     vector<vector<int>>prev(2,vector<int>(3,0));
+    //      vector<vector<int>>cur(2,vector<int>(3,0));
+    //      for(int ind=n-1;ind>=0;ind--){
+    //          for(int buy=0;buy<2;buy++){
+    //              for(int cap=1;cap<3;cap++){
+    //                  if(buy){
+    //                  cur[buy][cap]=max(-prices[ind]+prev[0][cap],prev[1][cap]);}
+    //                  else{
+    //                     cur[buy][cap]=max(prices[ind]+prev[1][cap-1],prev[0][cap]);
+    //                  }
+    //              }
+    //          }
+    //          prev=cur;
+    //      }
+
+    //    return prev[1][2];
+        int buy1 = INT_MAX;
+        int buy2 = INT_MAX;
+        int profit1 = 0;
+        int profit2 = 0;
+        for (auto &price : prices) {
+            buy1 = min(buy1, price);                // best observed buy price seen
+            profit1 = max(profit1, price - buy1);   // best observed profit window
+            buy2 = min(buy2, price - profit1);      // best buy price post-profit1
+            profit2 = max(profit2, price - buy2);   // best combined two transaction profit
+        }
+        return profit2;
+    }
+};
