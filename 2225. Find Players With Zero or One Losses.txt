@@ -1,0 +1,45 @@
+// class Solution {
+// public:
+//     vector<vector<int>> findWinners(vector<vector<int>>& matches) {
+//         map<int,int>lost;
+//         for(auto v:matches){
+//             if(!lost.count(v[0])) lost[v[0]]=0;
+//             lost[v[1]]++;
+//         }
+//         vector<int>zeros,ones;
+//         for( auto[k,l] :lost){
+//             if(l==0)zeros.push_back(k);
+//             if(l==1)ones.push_back(k);
+//         }
+//         return {zeros,ones};
+//     }
+// };
+/*
+answer[0] is a list of all players that have not lost any matches.
+answer[1] is a list of all players that have lost exactly one match.
+*/
+class Solution {
+public:
+    vector<vector<int>> findWinners(vector<vector<int>>& matches) {
+        vector<vector<int>> ans(2); 
+        unordered_map<int, int> mp; // lose count 
+        unordered_set<int> ms; // join  
+        for(int i = 0; i< matches.size(); i++) {
+            mp[matches[i][1]] ++;
+            ms.insert(matches[i][0]);
+            ms.insert(matches[i][1]);            
+        }
+        // not delete use iterator 
+        for(auto& it :ms){
+            if(mp.count(it)<=0) {
+                ans[0].push_back(it);
+            } else if (mp[it] == 1){
+                ans[1].push_back(it);
+            }
+        }
+        
+        sort(ans[0].begin(), ans[0].end());
+        sort(ans[1].begin(), ans[1].end());
+        return ans; 
+    }
+};
