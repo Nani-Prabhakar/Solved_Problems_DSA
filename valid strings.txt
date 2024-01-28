@@ -1,0 +1,23 @@
+class Solution {
+    bool isVowel(char c){
+        return (c=='a' or c=='e' or c=='i' or c=='o' or c=='u');
+    }
+    int numberOfVowels(string s){
+        int cnt=0;
+        for(auto c:s){
+            if(isVowel(c))cnt++;
+        }
+        return cnt;
+    }
+  public:
+    int validStrings(int n, int k, vector<string> &arr) {
+        // code here
+        int ans=0;
+        for(auto s:arr){
+            int cnt=numberOfVowels(s);
+            if(cnt==k)ans++;
+        }
+        return ans;
+        
+    }
+};
