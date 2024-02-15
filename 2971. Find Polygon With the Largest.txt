@@ -1,0 +1,18 @@
+2971. Find Polygon With the Largest Perimeter
+class Solution {
+public:
+    long long largestPerimeter(vector<int>& nums) {
+        int n=nums.size();
+        sort(nums.begin(),nums.end());
+        long long ans=-1;
+        vector<long long>preSum(n,0);
+        preSum[0]=nums[0];
+        for(int i=1;i<n;i++){
+            preSum[i]=preSum[i-1]+nums[i];
+        }
+        for(int i=n-1;i>=2;i--){
+            if(preSum[i-1]>nums[i])return preSum[i-1]+nums[i];
+        }
+        return ans;
+    }
+};
