@@ -1,0 +1,38 @@
+class Solution {
+    bool dfs(int node,vector<int>& vis,
+        vector<int>& pathVis,
+        vector<int>& check,vector<vector<int>>& graph){
+            vis[node]=1;
+            pathVis[node]=1;
+            check[node]=0;
+            for(auto it:graph[node]){
+                if(!vis[it]){
+                    if(dfs(it,vis,pathVis,check,graph)){
+                        //check[node]=0;
+                        return true;
+                    }
+                }
+                else if(pathVis[it]){
+                    return true;
+                }
+            }
+            pathVis[node]=0;
+            check[node]=1;
+            return false;
+        }
+public:
+    vector<int> eventualSafeNodes(vector<vector<int>>& graph) {
+        int v=graph.size();
+        vector<int>safeNodes;
+        vector<int>vis(v,0);
+        vector<int>pathVis(v,0);
+        vector<int>check(v,0);
+        for(int i=0;i<v;i++){
+            if(!vis[i])dfs(i,vis,pathVis,check,graph);
+        }
+        for(int i=0;i<v;i++){
+            if(check[i]==1)safeNodes.push_back(i);
+        }
+        return safeNodes;
+    }
+};
