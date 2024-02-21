@@ -1,0 +1,34 @@
+class Solution {
+public:
+    int maximumSetSize(vector<int>& nums1, vector<int>& nums2) {
+        int n = nums1.size(), ans = 0, count = 0;
+        unordered_set<int> st1(nums1.begin(), nums1.end());
+        unordered_set<int> st2(nums2.begin(), nums2.end());
+        for(auto x : st1){
+            if(!st2.contains(x)){
+                count++;
+                ans++;
+            }
+            if(count == n / 2)
+                break;
+        }
+        count = 0;
+        for(auto x : st2){
+            if(!st1.contains(x)){
+                count++;
+                ans++;
+            }
+            if(count == n / 2)
+                break;
+        }
+        count = 0;
+        if(ans != n){
+            for(auto x : st1){
+                if(st2.contains(x))
+                    count++;
+            }
+            ans += min(n - ans, count);
+        }
+        return ans;
+    }
+};
