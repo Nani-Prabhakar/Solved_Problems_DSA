@@ -1,0 +1,50 @@
+class Solution {
+public:
+    long long findScore(vector<int>& nums) {
+        int n=nums.size();
+        long long ans=0;
+//         vector<pair<int,int>>v;
+//         for(int i=0;i<n;i++){
+//             v.push_back({nums[i],i});
+//         }
+//         sort(v.begin(), v.end(), [](const auto &pair1, const auto &pair2) {
+//     if (pair1.first < pair2.first) {
+//         return true;
+//     } else if (pair1.first == pair2.first) {
+//         // If the first elements are equal, compare the second elements
+//         return pair1.second < pair2.second;
+//     } else {
+//         return false;
+//     }
+// });
+// for(auto it:v)cout<<it.first<<" "<<it.second<<endl;
+
+//         vector<int>mark(n,0);
+//         //int cnt=0;
+//         for(int i=0;i<n;i++){
+//             if(!mark[v[i].second]){
+//                 int idx=v[i].second;
+//                 int cost=v[i].first;
+//                 if(idx-1>=0)mark[idx-1]=1;
+//                 if(idx+1<n)mark[idx+1]=1;
+//                 ans+=cost;
+//             }
+//         }
+        priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>>q;
+        for(int i=0;i<n;i++)q.push({nums[i],i});
+        vector<int>mark(n,0);
+        while(!q.empty()){
+            auto it=q.top();
+            q.pop();
+            int idx=it.second;
+            int cost=it.first;
+            if(!mark[idx]){
+                mark[idx]=1;
+                if(idx-1>=0)mark[idx-1]=1;
+                if(idx+1<n)mark[idx+1]=1;
+                ans+=cost;
+            }
+        }
+        return ans;
+    }
+};

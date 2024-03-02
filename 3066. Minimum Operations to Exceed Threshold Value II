@@ -1,0 +1,28 @@
+class Solution {
+public:
+    int minOperations(vector<int>& nums, int k) {
+        int cnt=0;
+        priority_queue<int,std::vector<int>, std::greater<int>>q;
+        for(auto a:nums){
+            if(a<k)q.push(a);
+        }
+        //cout<<q.top();
+        while(!q.empty()){
+            cnt++;
+            if(q.size()>=2){
+                long long int x=q.top();
+                q.pop();
+                long long int y=q.top();
+                q.pop();
+                long long int el=x*2+y;
+                if(el<k)q.push(el);
+            }
+            
+            else{
+                
+                q.pop();
+            }
+        }
+        return cnt;
+    }
+};
